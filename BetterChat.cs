@@ -22,7 +22,7 @@ using CompanionServer;
 
 namespace Oxide.Plugins
 {
-    [Info("Better Chat", "LaserHydra", "5.2.13")]
+    [Info("Better Chat", "LaserHydra", "5.2.14")]
     [Description("Allows to manage chat groups, customize colors and add titles.")]
     internal class BetterChat : CovalencePlugin
     {
@@ -184,16 +184,16 @@ namespace Oxide.Plugins
                     break;
 
                 case Chat.ChatChannel.Cards:
-                    CardTable cardTable = basePlayer.GetMountedVehicle() as CardTable;
+                    BaseCardGameEntity baseCardGame = basePlayer.GetMountedVehicle() as BaseCardGameEntity;
 
-                    if (cardTable == null /* || !cardTable.GameController.PlayerIsInGame(basePlayer) */)
+                    if (baseCardGame == null /* || !cardTable.GameController.PlayerIsInGame(basePlayer) */)
                     {
                        throw new InvalidOperationException("Chat channel is set to Cards, however the player is not in a participating in a card game.");
                     }
 
                     List<Network.Connection> list = Facepunch.Pool.GetList<Network.Connection>();
 
-                    foreach (CardPlayerData playerData in cardTable.GameController.PlayerData)
+                    foreach (CardPlayerData playerData in baseCardGame.GameController.PlayerData)
                     {
                         if (playerData.HasUser)
                         {
